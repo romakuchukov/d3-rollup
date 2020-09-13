@@ -8,7 +8,16 @@ body {
   max-width: 1000px;
   width: 100%;
 }
-
+.dropdown { width: 100%; }
+.select-container {
+  margin-top: 20px;
+  .select2-container {
+    width: 100% !important;
+    .select2-selection--single {
+      .select2-selection__rendered { line-height: 25px; }
+    }
+  }
+}
 .svg {
   position: relative;
   width: 100%;
