@@ -9,18 +9,18 @@ const height = 500;
 const width = 1000;
 const margin = { top: 20, right: 30, bottom: 30, left: 40 };
 
-const x = d3.scaleLinear().domain(d3.extent(data, d => d.date)).range([margin.left, width - margin.right]);
+const x = d3.scaleLinear().domain(d3.extent(data, d => d.year)).range([margin.left, width - margin.right]);
 const y = d3.scaleLinear().domain([0, d3.max(data, d => +d.value)]).nice().range([height - margin.bottom, margin.top]);
 
-const line = d3.line().curve(d3.curveBasis).defined(d => !isNaN(+d.value)).x(d => x(d.date)).y(d => y(+d.value));
+const line = d3.line().curve(d3.curveBasis).defined(d => !isNaN(+d.value)).x(d => x(d.year)).y(d => y(+d.value));
 
 const bisect = mx => {
-  const date = x.invert(mx);
-  const index = d3.bisector(d => d.date).left(data, date, 1);
+  const year = x.invert(mx);
+  const index = d3.bisector(d => d.year).left(data, year, 1);
   const a = data[index - 1];
   const b = data[index];
 
-  return b && (date - a.date > b.date - date) ? b : a;
+  return b && (year - a.year > b.year - year) ? b : a;
 }
 
 const xAxis = g => g
