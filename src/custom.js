@@ -31,19 +31,30 @@ const bisect = mx => {
 
 const xAxis = g => g
   .attr('transform', `translate(0,${height - margin.bottom})`)
-  .call(d3.axisBottom(x).tickFormat(x => `Yr ${x}`));
+  .call(d3.axisBottom(x).tickFormat(x => !(x % 2) ? `Yr ${x}`:null).tickSize(0))
+  .attr('transform', `translate(0,${height-margin.top})`)
+  .call(g => g.select('.domain').remove())
 
 const yAxis = g => g
   .attr('transform', `translate(${margin.left},0)`)
   .call(d3.axisLeft(y).ticks(d3.max(data, d => d.value+1), '$1f'))
+  .attr('stroke-opacity', 0)
+  .attr('transform', `translate(20,0)`)
   .call(g => g.select('.domain').remove())
-  .call(g => g.select('.tick:last-of-type text')
-  .clone()
-  .attr('x', -height/2)
-  .attr('y', -margin.left)
-  .attr('transform', 'rotate(-90)')
-  .classed('y-label', true)
-  .text('Millions'));
+  .call(
+    g => g.select('.tick:last-of-type text')
+      .clone()
+      .attr('x', -height/2)
+      .attr('y', -margin.left)
+      .attr('transform', 'rotate(-90)')
+      .classed('y-label', true)
+      .text('Millions')
+  ).call(
+    g => g.selectAll('.tick line')
+      .clone()
+      .attr('x2', width - margin.right - margin.left)
+      .attr('stroke-opacity', 0.1)
+  );
 
 const svg = d3.select('body')
   .append('div')
