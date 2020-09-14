@@ -120,7 +120,12 @@ svg.node();
 const dispatch = d3.dispatch('eventDropDownClose');
 
 const eventHandler = (e) => {
-  console.log(e.currentTarget.value);
+
+  const { value } = e.currentTarget;
+
+  if(!value.length) return;
+
+  console.log(value);
   console.log('redraw line');
 }
 
