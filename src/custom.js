@@ -2,7 +2,7 @@ import data from './data';
 
 const height = 500;
 const width = 1000;
-const margin = { top: 20, right: 30, bottom: 30, left: 40 };
+const margin = { top: 20, right: 30, bottom: 30, left: 30 };
 
 const x = d3
   .scaleLinear()
@@ -39,9 +39,11 @@ const yAxis = g => g
   .call(g => g.select('.domain').remove())
   .call(g => g.select('.tick:last-of-type text')
   .clone()
-  .attr('x', 3)
+  .attr('x', -height/2)
+  .attr('y', -margin.left)
+  .attr('transform', 'rotate(-90)')
   .classed('y-label', true)
-  .text('$ Millions'));
+  .text('Millions'));
 
 const svg = d3.select('body')
   .append('div')
