@@ -1,4 +1,7 @@
-import data from './data'
+import data from './data';
+
+const dispatch = d3.dispatch('eventDropDownClose');
+
 //https://stackoverflow.com/questions/16265123/resize-svg-when-window-is-resized-in-d3-js
 // https://www.d3-graph-gallery.com/graph/line_basic.html
 // https://developers.google.com/chart/interactive/docs/gallery/linechart
@@ -115,3 +118,12 @@ svg.on('touchmove mousemove', event => {
 });
 
 svg.node();
+
+
+
+const eventHandler = (e) => {
+  console.log(e.currentTarget.value);
+  console.log('redraw line');
+}
+
+dispatch.on('eventDropDownClose', eventHandler);

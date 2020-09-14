@@ -3,6 +3,7 @@
 
 import 'regenerator-runtime/runtime';
 
+export { dispatch } from 'd3-dispatch';
 export { line, curveStep } from 'd3-shape';
 export { axisBottom, axisLeft } from 'd3-axis';
 export { extent, max, bisector } from 'd3-array';
