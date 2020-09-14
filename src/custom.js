@@ -31,7 +31,7 @@ const formatDate = (date) => {
 const popup = (g, value) => {
   if (!value) return g.style('display', 'none');
 
-  g.style('display', null).style('pointer-events', 'none').style('font', '10px sans-serif');
+  g.style('display', null).style('pointer-events', 'none').style('font-size', '8px');
 
   const path = g.selectAll('path')
     .data([null])
@@ -70,17 +70,19 @@ const bisect = mx => {
 
 const xAxis = g => g
   .attr('transform', `translate(0,${height - margin.bottom})`)
+  .style('font-family', 'monospace')
   .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0));
 
 const yAxis = g => g
   .attr('transform', `translate(${margin.left},0)`)
+  .style('font-family', 'monospace')
   .call(d3.axisLeft(y))
   .call(g => g.select('.domain').remove())
   .call(g => g.select('.tick:last-of-type text')
   .clone()
   .attr('x', 3)
-  .attr('text-anchor', 'start')
-  .attr('font-weight', 'bold')
+  .style('text-anchor', 'start')
+  .style('font-weight', 'bold')
   .text('$ Close'));
 
 const svg = d3.select('body')
