@@ -31,7 +31,7 @@ const formatDate = (date) => {
 const popup = (g, value) => {
   if (!value) return g.style('display', 'none');
 
-  g.style('display', null).style('pointer-events', 'none').style('font-size', '8px');
+  g.classed('popup', true)
 
   const path = g.selectAll('path')
     .data([null])
@@ -47,8 +47,7 @@ const popup = (g, value) => {
       .data(value.trim().split(/\s(.+)/).filter(el => !!el))
       .join('tspan')
       .attr('x', 0)
-      .attr('y', (d, i) => `${i * 1.1}em`)
-      .style('font-weight', (_, i) => i ? null : 'bold')
+      .attr('y', (d, i) => `${i * 1.3}em`)
       .text(d => d));
 
   const { x, y, width: w, height: h } = text.node().getBBox();
@@ -70,19 +69,16 @@ const bisect = mx => {
 
 const xAxis = g => g
   .attr('transform', `translate(0,${height - margin.bottom})`)
-  .style('font-family', 'monospace')
   .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0));
 
 const yAxis = g => g
   .attr('transform', `translate(${margin.left},0)`)
-  .style('font-family', 'monospace')
   .call(d3.axisLeft(y))
   .call(g => g.select('.domain').remove())
   .call(g => g.select('.tick:last-of-type text')
   .clone()
   .attr('x', 3)
-  .style('text-anchor', 'start')
-  .style('font-weight', 'bold')
+  .classed('y-label', true)
   .text('$ Close'));
 
 const svg = d3.select('body')
@@ -91,11 +87,7 @@ const svg = d3.select('body')
   .append('svg')
   .attr('preserveAspectRatio', 'xMinYMin meet')
   .attr('viewBox', '0 0 400 490')
-  .classed('responsive', true)
-  .style('-webkit-tap-highlight-color', 'transparent')
-  .style('overflow', 'visible')
-  .style('height', '100%')
-  .style('width', '100%');
+  .classed('responsive', true);
 
 svg.append('g').call(xAxis);
 
