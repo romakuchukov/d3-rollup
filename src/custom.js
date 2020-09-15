@@ -1,4 +1,4 @@
-import data from './data';
+import data from './average';
 import average from './average';
 import { transpose } from 'd3-array';
 
@@ -9,12 +9,12 @@ const { compColor, avgColor } = { compColor: '#375347', avgColor: '#000' };
 
 const x = d3
   .scaleLinear()
-  .domain(d3.extent(data, d => d.year))
+  .domain(d3.extent(average, d => d.year))
   .range([margin.left, width - margin.right]);
 
 const y = d3
   .scaleLinear()
-  .domain([0, d3.max(data, d => d.value+1)])
+  .domain([0, d3.max(average, d => d.value+1)])
   .range([height - margin.bottom, margin.top]);
 
 const line = d3.line()
@@ -25,9 +25,9 @@ const line = d3.line()
 
 const bisect = mx => {
   const year = x.invert(mx);
-  const index = d3.bisector(d => d.year).left(data, year, 1);
-  const a = data[index - 1];
-  const b = data[index];
+  const index = d3.bisector(d => d.year).left(average, year, 1);
+  const a = average[index - 1];
+  const b = average[index];
 
   return b && (year - a.year > b.year - year) ? b : a;
 }
@@ -40,7 +40,7 @@ const xAxis = g => g
 
   const yAxis = g => g
   .attr('transform', `translate(${margin.left},0)`)
-  .call(d3.axisLeft(y).ticks(d3.max(data, d => d.value+1), '$1f'))
+  .call(d3.axisLeft(y).ticks(d3.max(average, d => d.value+1), '$1f'))
   .attr('stroke-opacity', 0)
   .attr('transform', `translate(${margin.left},0)`)
   .call(g => g.select('.domain').remove())
@@ -64,9 +64,9 @@ svg.append('g').call(xAxis);
 svg.append('g').call(yAxis);
 
 svg.append('path')
-  .datum(data)
+  .datum(average)
   .attr('fill', 'none')
-  .attr('stroke', compColor)
+  .attr('stroke', avgColor)
   .attr('stroke-width', 3)
   .attr('stroke-linejoin', 'round')
   .attr('stroke-linecap', 'round')
