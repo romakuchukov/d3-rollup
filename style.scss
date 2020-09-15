@@ -24,7 +24,7 @@ body {
 .svg {
   position: relative;
   width: 100%;
-  padding-bottom: 50%;
+  padding-bottom: 54%;
   svg.responsive {
     position: absolute;
     height: 100%;
@@ -34,10 +34,6 @@ body {
     > g {
       font-family: monospace;
       font-size: 10px;
-    }
-    .y-label {
-      text-anchor: start;
-      font-size: 12px;
     }
   }
 }
