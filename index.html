@@ -20,8 +20,8 @@
   <div class="select-container">
     <select class="dropdown">
       <option value="">---</option>
-      <option value="cmp-1">Company 1</option>
-      <option value="cmp-2">Company 2</option>
+      <option value="data">Company 1</option>
+      <option value="tada">Company 2</option>
     </select>
   </div>
   <script>
@@ -32,7 +32,7 @@
       $dropdown.select2({ minimumResultsForSearch: -1 });
 
       $dropdown.on('select2:close', function (e) {
-        dispatch.call('eventDropDownClose', this, e);
+        Main.dispatch.call('eventDropDownClose', this, e);
       });
     }
   </script>

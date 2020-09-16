@@ -1,6 +1,10 @@
-import data from './average';
+import data from './data';
+import tada from './tada';
 import average from './average';
-import { transpose } from 'd3-array';
+
+const dispatch = d3.dispatch('eventDropDownClose');
+
+export { data, tada, dispatch };
 
 const height = 500;
 const width = 1000;
@@ -68,8 +72,6 @@ svg.append('path')
   .attr('fill', 'none')
   .attr('stroke', avgColor)
   .attr('stroke-width', 3)
-  .attr('stroke-linejoin', 'round')
-  .attr('stroke-linecap', 'round')
   .attr('transform', 'translate(10, 0)')
   .attr('d', line);
 
@@ -104,17 +106,21 @@ legendX.select('.average').attr('x', compW+lineWidth+17);
 
 legendX.attr('transform', `translate(${width/2-legendOffset},${height+10})`);
 
-const dispatch = d3.dispatch('eventDropDownClose');
-
 const eventHandler = (e = {}) => {
 
-  const { value } = e.currentTarget || { value: '' };
+  const { value } = e.currentTarget;
 
-  // console.log(value);
+  //d3.select('#company').remove();
 
-  if(!value.length) return;
+  svg.attr('id', 'company')
+    .append('path')
+    .datum(Main[value] || [])
+    .attr('fill', 'none')
+    .attr('stroke', compColor)
+    .attr('stroke-width', 3)
+    .attr('transform', 'translate(10, 0)')
+    .attr('d', line);
 
-  console.log(value, 'redraw line');
 }
 
 dispatch.on('eventDropDownClose', eventHandler);
