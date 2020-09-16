@@ -84,7 +84,7 @@ legendY.classed('legendY', true).attr('transform', `translate(${0},${(height/2) 
 
 const legendX = svg.append('g');
 
-legendX.classed('legendX', true).attr('transform', `translate(${width/2},${height})`);
+legendX.classed('legendX', true);
 
 legendX.append('text').classed('average', true).text('Industrial Average');
 legendX.append('text').classed('company', true).text('Your Company');
@@ -104,16 +104,16 @@ legendX.select('.comp-color').attr('x', -lineWidth-2).attr('y', -4);
 legendX.select('.avg-color').attr('x', compW+15).attr('y', -4);
 legendX.select('.average').attr('x', compW+lineWidth+17);
 
-legendX.attr('transform', `translate(${width/2-legendOffset},${height+10})`);
+legendX.attr('transform', `translate(${width/2-legendOffset*2},${height+10})`);
 
 const eventHandler = (e = {}) => {
 
   const { value } = e.currentTarget;
 
-  //d3.select('#company').remove();
+  d3.select('#company').remove();
 
-  svg.attr('id', 'company')
-    .append('path')
+  svg.append('path')
+    .attr('id', 'company')
     .datum(Main[value] || [])
     .attr('fill', 'none')
     .attr('stroke', compColor)
