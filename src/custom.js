@@ -2,10 +2,6 @@ import data from './data';
 import tada from './tada';
 import average from './average';
 
-const dispatch = d3.dispatch('eventDropDownClose');
-
-export { data, tada, dispatch };
-
 const height = 500;
 const width = 1000;
 const margin = { top: 20, right: 30, bottom: 30, left: 30 };
@@ -106,6 +102,9 @@ legendX.select('.average').attr('x', compW+lineWidth+17);
 
 legendX.attr('transform', `translate(${width/2-legendOffset*2},${height+10})`);
 
+
+const dispatch = d3.dispatch('eventDropDownClose');
+
 const eventHandler = (e = {}) => {
 
   const { value } = e.currentTarget;
@@ -124,3 +123,5 @@ const eventHandler = (e = {}) => {
 }
 
 dispatch.on('eventDropDownClose', eventHandler);
+
+export { data, tada, dispatch };
