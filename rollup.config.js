@@ -24,6 +24,8 @@ export default [{
 }, {
   input: `${src}custom.js`,
   output: {
+    name: 'Main',
+    format: 'iife',
     dir: dist,
     entryFileNames: 'custom.min.js'
   },
