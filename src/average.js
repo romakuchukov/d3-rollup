@@ -1,5 +1,5 @@
 
-export default average = [
+export default [
   {year:0,value: 2.10},
   {year:1,value: 2.25},
   {year:2,value: 2.35},
